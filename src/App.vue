@@ -1,62 +1,20 @@
 <script setup>
-import { ref } from 'vue'
+
 import { livros } from '@/_data/livros.js'
-
-const carrinho = ref({
-  itens: [],
-  total: 0
-})
-
-function atualizaQuantidadeItem(item) {
-  carrinho.value.total -= item.total
-  item.total = item.price * item.quantidade
-  carrinho.value.total += item.total
-}
-
-function removerItemCarrinho(item) {
-  const index = carrinho.value.itens.findIndex((i) => i.id === item.id)
-  carrinho.value.total -= item.total
-  carrinho.value.itens.splice(index, 1)
-}
-
-function adicionarAoCarrinho(livro) {
-  const index = carrinho.value.itens.findIndex((item) => item.id === livro.id)
-  if (index === -1) {
-    carrinho.value.itens.push({
-      ...livro,
-      quantidade: 1,
-      total: livro.price
-    })
-    carrinho.value.total += livro.price
-  } else {
-    carrinho.value.itens[index].quantidade++
-    carrinho.value.itens[index].total += livro.price
-    carrinho.value.total += livro.price
-  }
-}
+import {carrinho,atualizaQuantidadeItem,removerItemCarrinho,adicionarAoCarrinho}from '@/_data/carrinho.js'
 
 function formatarPreco(preco) {
   return 'R$ ' + preco.toFixed(2).replace('.', ',')
 }
+
+import cardLivro from '@/componets/cardLivro.vue'
 </script>
 
 <template>
   <h1>Minha livraria</h1>
   <div class="container-geral">
     <div class="listagem-livros">
-      <div class="card-livro" v-for="livro in livros" :key="livro.id">
-        <div class="card-info-livro">
-          <div class="wrap-livro">
-            <img :src="livro.img" alt="Capa do livro" class="capa-livro" />
-          </div>
-          <p class="titulo-livro">{{ livro.title }}</p>
-          <p class="autor-livro">{{ livro.author }}</p>
-          <p class="preco-livro">{{ formatarPreco(livro.price) }}</p>
-        </div>
-        <div class="card-buttons-livros">
-          <button @click="adicionarAoCarrinho(livro)">Adicionar ao carrinho</button>
-        </div>
-      </div>
+     <card-livro v-for="livros in livros" :key="livros.id"/>
     </div>
     <div class="carrinho">
       <h2>Meu carrinho</h2>
