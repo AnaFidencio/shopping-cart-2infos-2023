@@ -1,20 +1,18 @@
 <script setup>
 
 import { livros } from '@/_data/livros.js'
-import {carrinho,atualizaQuantidadeItem,removerItemCarrinho,adicionarAoCarrinho}from '@/_data/carrinho.js'
-
+import { carrinho, atualizaQuantidadeItem, removerItemCarrinho, adicionarAoCarrinho } from '@/_data/carrinho.js'
 function formatarPreco(preco) {
   return 'R$ ' + preco.toFixed(2).replace('.', ',')
 }
-
-import cardLivro from '@/componets/cardLivro.vue'
+import CardLivro from '@/components/CardLivro.vue'
 </script>
 
 <template>
   <h1>Minha livraria</h1>
   <div class="container-geral">
     <div class="listagem-livros">
-     <card-livro v-for="livros in livros" :key="livros.id"/>
+      <card-livro v-for="livro in livros" :key="livro.id" v-bind:livro="livro" @adicionarAoCarrinho ="adicionarAoCarrinho"/>
     </div>
     <div class="carrinho">
       <h2>Meu carrinho</h2>
@@ -34,12 +32,7 @@ import cardLivro from '@/componets/cardLivro.vue'
                 <div>
                   <p>
                     Quantidade:
-                    <input
-                      type="number"
-                      v-model="item.quantidade"
-                      @change="atualizaQuantidadeItem(item)"
-                      min="1"
-                    />
+                    <input type="number" v-model="item.quantidade" @change="atualizaQuantidadeItem(item)" min="1" />
                   </p>
                   <button @click="removerItemCarrinho(item)">&#128465;</button>
                   <p>Total: {{ formatarPreco(item.total) }}</p>
@@ -66,14 +59,17 @@ import cardLivro from '@/componets/cardLivro.vue'
   display: flex;
   margin-bottom: 10px;
 }
+
 .detalhes-livro {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+
 .detalhes-livro p {
   margin: 0;
 }
+
 .detalhes-livro div {
   display: flex;
   justify-content: space-between;
@@ -102,10 +98,12 @@ import cardLivro from '@/componets/cardLivro.vue'
 .info-livro-preco {
   margin-left: auto;
 }
+
 .icon-capa-livro {
   width: 30px;
   margin-right: 10px;
 }
+
 .container-geral {
   /* display: flex;
   justify-content: space-between; */
@@ -116,6 +114,7 @@ import cardLivro from '@/componets/cardLivro.vue'
 .carrinho {
   /* min-width: 20%; */
 }
+
 .listagem-livros {
   display: flex;
   flex-wrap: wrap;
@@ -141,6 +140,7 @@ import cardLivro from '@/componets/cardLivro.vue'
   width: 180px;
   height: 270px;
 }
+
 .capa-livro {
   width: 90%;
   max-height: 100%;
