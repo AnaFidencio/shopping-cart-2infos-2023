@@ -1,4 +1,5 @@
 <script setup>
+
 const props = defineProps ({
     livro: Object
 })
@@ -32,7 +33,7 @@ function formatarPreco(preco) {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 10px;
   width: 180px;
   height: 270px;
@@ -50,4 +51,15 @@ function formatarPreco(preco) {
 .card-livro .titulo-livro {
   font-weight: bold;
   margin-bottom: 5px;
-}</style>
+}
+.card-livro {
+  margin: 5px 10px;
+  padding: 10px;
+  background-color: rgb(160, 204, 221);
+  border-radius: 10px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+</style>
